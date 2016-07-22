@@ -1,9 +1,9 @@
-# l2tp-server
+# aws-ec2-xl2tpd
+
+Install xl2tpd and openswan on AWS EC2 instance.
 
 ## Installation
 
-### On an AWS EC2 server
+git clone https://github.com/alexzhangs/aws-ec2-xl2tpd.git
 
-git clone https://github.com/alexzhangs/l2tp-server.git
-
-sudo sh l2tp-server/l2tp-ec2-install.sh
+sudo sh aws-ec2-xl2tpd/install.sh

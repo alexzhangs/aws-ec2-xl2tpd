@@ -1,14 +1,43 @@
 #!/bin/sh
 
-IPSEC_PSK=${1:?}
+usage () {
+    printf "Usage: ${0##*/} [-k IPSEC_PSK] [-p PRIMARY_DNS] [-s SECONDARY_DNS]\n"
+    printf "OPTIONS\n"
+    printf "\t[-k IPSEC_PSK]\n\n"
+    printf "\tIPsec Pre-Shared Key, default is 'SharedSecret'.\n\n"
+    printf "\t[-p PRIMARY_DNS]\n\n"
+    printf "\tPrimary DNS, default is '8.8.8.8'.\n\n"
+    printf "\t[-s SECONDARY_DNS]\n\n"
+    printf "\tSecondary DNS, default is '8.8.4.4'.\n\n"
+    exit 255
+}
+
+while getopts k:p:s:h opt; do
+    case $opt in
+        k)
+            IPSEC_PSK=$OPTARG
+            ;;
+        p)
+            PRIMARY_DNS=$OPTARG
+            ;;
+        s)
+            SECONDARY_DNS=$OPTARG
+            ;;
+        *|h)
+            usage
+            ;;
+    esac
+done
+
+[[ -z $IPSEC_PSK ]] && IPSEC_PSK="SharedSecret"
+[[ -z $PRIMARY_DNS ]] && PRIMARY_DNS="8.8.8.8"
+[[ -z $SECONDARY_DNS ]] && SECONDARY_DNS="8.8.4.4"
 
 L2TP_PORT=1701
 L2TP_VIRTUAL_IP=192.168.42.1
 L2TP_DHCP_CIDR=192.168.42.0/24
 L2TP_DHCP_START=192.168.42.10
 L2TP_DHCP_END=192.168.42.250
-PRIMARY_DNS=8.8.8.8
-SECOND_DNS=8.8.4.4
 
 # Those two variables will be found automatically
 SERVER_PRIVATE_IP=`curl http://169.254.169.254/latest/meta-data/local-ipv4` || exit $?
@@ -50,7 +79,7 @@ sed -i "s/<L2TP_PORT>/$L2TP_PORT" /etc/xl2tpd/xl2tpd.conf || exit $?
 # options.xl2tpd
 /bin/cp -a ${0%/*}/conf/options.xl2tpd /etc/ppp/options.xl2tpd || exit $?
 sed -i "s/<PRIMARY_DNS>/$PRIMARY_DNS" /etc/ppp/options.xl2tpd || exit $?
-sed -i "s/<SECOND_DNS>/$SECOND_DNS" /etc/ppp/options.xl2tpd || exit $?
+sed -i "s/<SECONDARY_DNS>/$SECONDARY_DNS" /etc/ppp/options.xl2tpd || exit $?
 
 # char-secrets
 /bin/cp -a ${0%/*}/conf/chap-secrets /etc/ppp/char-secrets || exit $?
