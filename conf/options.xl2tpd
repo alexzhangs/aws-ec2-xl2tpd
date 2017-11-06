@@ -11,4 +11,4 @@ mru 1280
 lock
 connect-delay 5000
 lcp-echo-interval 30
- lcp-echo-failure 4
+lcp-echo-failure 4
