@@ -36,7 +36,7 @@ done
 L2TP_PORT=1701
 L2TP_VIRTUAL_IP=192.168.42.1
 L2TP_DHCP_CIDR=192.168.42.0/24
-L2TP_DHCP_START=192.168.42.10
+L2TP_DHCP_BEGIN=192.168.42.10
 L2TP_DHCP_END=192.168.42.250
 
 # Those two variables will be found automatically
@@ -72,7 +72,7 @@ sed -i "s/<IPSEC_PSK>/$IPSEC_PSK/" /etc/ipsec.secrets || exit $?
 # xl2tpd.conf
 /bin/cp -a ${0%/*}/conf/xl2tpd.conf /etc/xl2tpd/xl2tpd.conf || exit $?
 sed -i "s/<L2TP_VIRTUAL_IP>/$L2TP_VIRTUAL_IP/" /etc/xl2tpd/xl2tpd.conf || exit $?
-sed -i "s/<L2TP_DHCP_START>/$L2TP_DHCP_START/" /etc/xl2tpd/xl2tpd.conf || exit $?
+sed -i "s/<L2TP_DHCP_BEGIN>/$L2TP_DHCP_BEGIN/" /etc/xl2tpd/xl2tpd.conf || exit $?
 sed -i "s/<L2TP_DHCP_END>/$L2TP_DHCP_END/" /etc/xl2tpd/xl2tpd.conf || exit $?
 sed -i "s/<L2TP_PORT>/$L2TP_PORT/" /etc/xl2tpd/xl2tpd.conf || exit $?
 
