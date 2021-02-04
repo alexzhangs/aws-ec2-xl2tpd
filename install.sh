@@ -45,7 +45,7 @@ L2TP_DHCP_END=192.168.42.250
 SERVER_PRIVATE_IP=`curl http://169.254.169.254/latest/meta-data/local-ipv4`
 SERVER_PUBLIC_IP=`curl http://169.254.169.254/latest/meta-data/public-ipv4`
 
-function if-yum-repo-exsit () {
+function if-yum-repo-exist () {
     # Usage: if-yum-repo-exist <repo>; echo $?
     [[ "$(yum repolist "${1:?}" | awk 'END {print $NF}')" > 0 ]]
 }
@@ -57,9 +57,6 @@ function amazon-linux-extra-safe () {
             # Amazon Linux 2 AMI needs this
             echo "installing repo: $repo ..."
             amazon-linux-extras install -y "$repo"
-        else
-            echo "$repo: not found the repo, abort." >&2
-            exit 255
         fi
     else
         echo 'amazon-linux-extra: not found the command, continue' >&2
