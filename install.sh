@@ -88,7 +88,7 @@ echo 'installing /etc/ipsec.secrets ...'
 /bin/cp -a ${0%/*}/conf/ipsec.secrets /etc/ipsec.secrets
 sed -i "s/<SERVER_PUBLIC_IP>/$SERVER_PUBLIC_IP/" /etc/ipsec.secrets
 sed -i "s/<IPSEC_PSK>/$IPSEC_PSK/" /etc/ipsec.secrets
-/usr/bin/chmod 600 /etc/ipsec.secrets
+chmod 600 /etc/ipsec.secrets
 
 # xl2tpd.conf
 echo 'installing /etc/xl2tpd/xl2tpd.conf ...'
@@ -106,7 +106,7 @@ sed -i "s/<SECONDARY_DNS>/$SECONDARY_DNS/" /etc/ppp/options.xl2tpd
 # char-secrets
 echo 'installing /etc/ppp/char-secrets ...'
 /bin/cp -a ${0%/*}/conf/chap-secrets /etc/ppp/char-secrets
-/usr/bin/chmod 600 /etc/ppp/char-secrets
+chmod 600 /etc/ppp/char-secrets
 
 function sysctl-write-and-save () {
     # Usage: sysctl-write-and-save <key>=<value>
