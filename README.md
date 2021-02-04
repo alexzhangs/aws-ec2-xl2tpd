@@ -124,10 +124,7 @@ never opened to the outside.
 
 * [xl2tpd](https://github.com/xelerance/xl2tpd) at Github
 * [L2tp ipsec configuration using openswan and xl2tpd](https://github.com/xelerance/Openswan/wiki/L2tp-ipsec-configuration-using-openswan-and-xl2tpd)
-* delete-me: https://serverfault.com/questions/451381/which-ports-for-ipsec-lt2p
-* delete-me: [ipsec.conf Reference](https://wiki.strongswan.org/projects/strongswan/wiki/IpsecConf)
-  * [ipsec.conf: config setup Reference](https://wiki.strongswan.org/projects/strongswan/wiki/ConfigSetupSection)
-  * [ipsec.conf: conn <name> Reference](https://wiki.strongswan.org/projects/strongswan/wiki/ConnSection)
+* https://serverfault.com/questions/451381/which-ports-for-ipsec-lt2p
 * [Example of a successful IPSec negotiation](https://www.linogate.de/en/support/categories/ipsec/log.html)
 
 ## Troubleshooting
