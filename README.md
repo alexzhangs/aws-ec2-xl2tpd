@@ -72,6 +72,54 @@ EC2 instance:
 NOTE: Don't list the UDP port `1701` in the inboud rules, It should be
 never opened to the outside.
 
+## Known Issues
+
+1. Failed connecting to the xl2tpd server on Amazon linux AMI.
+
+    The IPSec connection is always being deleted from client side
+    after the SCCRQ was sent 20 seconds later.
+
+    ```
+    Wed Jan  6 01:22:58 2021 : IPSec connection started
+    Wed Jan  6 01:22:59 2021 : IPSec phase 1 client started
+    Wed Jan  6 01:22:59 2021 : IPSec phase 1 server replied
+    Wed Jan  6 01:23:00 2021 : IPSec phase 2 started
+    Wed Jan  6 01:23:00 2021 : IPSec phase 2 established
+    Wed Jan  6 01:23:00 2021 : IPSec connection established
+    Wed Jan  6 01:23:00 2021 : L2TP sent SCCRQ
+    Wed Jan  6 01:23:20 2021 : L2TP cannot connect to the server
+    ```
+
+    Following error detected in the xl2tpd service starting log:
+
+    ```
+    L2TP kernel support not detected (try modprobing l2tp_ppp and pppol2tp)
+    ```
+
+    The Above error was newly found with the new deployed Amazon Linux
+    AMI in 2021-01. It was fine with the old version of Amazon Linux AMI.
+
+    The environment detail:
+
+    ```sh
+    # cat /etc/system-release
+    Amazon Linux AMI release 2018.03
+
+    # cat /proc/version
+    Linux version 4.4.8-20.46.amzn1.x86_64 (mockbuild@gobi-build-60009)
+    (gcc version 4.8.3 20140911 (Red Hat 4.8.3-9) (GCC) ) #1 SMP Wed Apr
+    27 19:28:52 UTC 2016
+
+    # openssl version
+    OpenSSL 1.0.2k-fips  26 Jan 2017
+
+    # ipsec --version
+    Linux Openswan U2.6.37/K4.4.8-20.46.amzn1.x86_64 (netkey)
+
+    # xl2tpd --version
+    xl2tpd version:  xl2tpd-1.3.8
+    ```
+
 ## Reference
 
 * [xl2tpd](https://github.com/xelerance/xl2tpd) at Github
